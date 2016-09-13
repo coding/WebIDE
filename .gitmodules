@@ -1,9 +1,9 @@
 [submodule "backend"]
 	path = backend
-	url = git@git.coding.net:coding/WebIDE-Backend.git
+	url = ../WebIDE-Backend.git
 [submodule "frontend"]
 	path = frontend
-	url = git@git.coding.net:coding/WebIDE-Frontend.git
+	url = ../WebIDE-Frontend.git
 [submodule "frontend-webjars"]
 	path = frontend-webjars
-	url = git@git.coding.net:coding/WebIDE-Frontend-Webjars.git
+	url = ../WebIDE-Frontend-Webjars.git
