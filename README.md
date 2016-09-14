@@ -1,10 +1,28 @@
 # Coding WebIDE
 
+![](https://dn-coding-net-production-pp.qbox.me/7128efd3-cda1-4366-a859-43828ad3cf4b.png) 
+
+![](https://dn-coding-net-production-pp.qbox.me/9fc21f5f-fc91-415a-8b63-4e1beffcfca4.png) 
+
+Coding WebIDE(https://ide.coding.net) is a cloud-based IDE developed by Coding Team.You can create your own workspace and develop projects here.WebIDE works fine with Git. You can use Coding、GitHub、BitBucket as your Git repository. Workspaces are powered by Docker Ubuntu containers.The development environment can be saved and shared to your team member.
+
+## Features
+
+1. *Built-In Terminal*
+2. *Syntax Highlighting*
+3. *Language Tools*
+4. *Themes*
+5. *Split View*
+6. *VIM／Emacs Mode*
+7. *Previews*
+
+Please submit issues to corresponding projects, that'll help us make issues tracking easier so that we can provide timely help to you. Submit frontend issues at [WebIDE-Frontend](https://github.com/Coding/WebIDE-Frontend/issues) and backend issues at [WebIDE-Backend](https://github.com/Coding/WebIDE-Backend/issues).
+
 [中文 README](https://github.com/Coding/WebIDE-Workspace/blob/master/README-zh.md)
 
 This is the entry point to setup and run the WebIDE Community Edition project. It includes other 3 repos as git submodules.
 
-Please submit issues to corresponding projects, that'll help us make issues tracking easier so that we can provide timely help to you. Submit frontend issues at [WebIDE-Frontend](https://github.com/Coding/WebIDE-Frontend/issues) and backend issues at [WebIDE-Backend](https://github.com/Coding/WebIDE-Backend/issues).
+
 
 
 ## Modules
