@@ -16,6 +16,7 @@ Coding WebIDE(https://ide.coding.net) 是 Coding 自主研发的在线集成开�
 4. *主题切换*
 5. *分割视图*
 6. *VIM／Emacs 模式*
+7. *实时预览*
 
 本项目是为了能够一键启动 `WebIDE` 开源版而创建的，以 git 子模块的形式引用了另外的三个项目，分别是 WebIDE-Frontend、WebIDE-Frontend-Webjars、WebIDE-Backend。
 
