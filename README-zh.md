@@ -1,4 +1,4 @@
-# Coding WebIDE Workspace
+# Coding WebIDE
 
 ## 项目说明
 
