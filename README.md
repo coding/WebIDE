@@ -4,6 +4,8 @@
 
 This is the entry point to setup and run the WebIDE Community Edition project. It includes other 3 repos as git submodules.
 
+Please submit issues to corresponding projects, that'll help us make issues tracking easier so that we can provide timely help to you. Submit frontend issues at [WebIDE-Frontend](https://github.com/Coding/WebIDE-Frontend/issues) and backend issues at [WebIDE-Backend](https://github.com/Coding/WebIDE-Backend/issues).
+
 
 ## Modules
 
