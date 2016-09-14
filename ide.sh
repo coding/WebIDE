@@ -51,8 +51,7 @@ sub_build() {
         ;;
     "" | "frontend")
       cd $FRONTEND
-      npm config set registry https://registry.npm.taobao.org
-      npm install
+      npm install --registry=https://registry.npm.taobao.org
       npm run build
 
       cd $FRONTEND_WEBJARS
