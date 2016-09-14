@@ -1,4 +1,4 @@
-# Coding WebIDE Workspace
+# Coding WebIDE
 
 [中文 README](https://github.com/Coding/WebIDE-Workspace/blob/master/README-zh.md)
 
