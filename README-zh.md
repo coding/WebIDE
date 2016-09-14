@@ -1,8 +1,26 @@
 # Coding WebIDE
 
-本项目是为了能够一键启动 `WebIDE` 开源版而创建的，以 git 子模块的形式引用了另外的三个项目，分别是 WebIDE-Frontend、WebIDE-Frontend-Webjars、WebIDE-Backend。
+![](https://raw.github.com/Coding/WebIDE/master/screenshot/import.png) 
+
+![](https://raw.github.com/Coding/WebIDE/master/screenshot/workspace.png)
+
+Coding WebIDE(https://ide.coding.net) 是 Coding 自主研发的在线集成开发环境 (IDE)。用户可以通过 WebIDE 创建项目的工作空间, 进行在线开发, 调试等操作。同时 WebIDE 集成了 Git 代码版本控制, 用户可以选择 Coding、GitHub、BitBucket 等任意的代码仓库。 WebIDE 还提供了分享开发环境的功能, 用户可以保存当前的开发环境, 分享给团队的其他成员。
 
 请诸位把 issues 提到对应的项目下，这样可以得到更及时的处理。前端请到 [WebIDE-Frontend](https://github.com/Coding/WebIDE-Frontend/issues)，后端请到 [WebIDE-Backend](https://github.com/Coding/WebIDE-Backend/issues).
+
+## 功能特色
+
+1. *全功能 Web Terminal*
+2. *语法加亮*
+3. *代码补全*
+4. *主题切换*
+5. *分割视图*
+6. *VIM／Emacs 模式*
+7. *实时预览*
+
+本项目是为了能够一键启动 `WebIDE` 开源版而创建的，以 git 子模块的形式引用了另外的三个项目，分别是 WebIDE-Frontend、WebIDE-Frontend-Webjars、WebIDE-Backend。
+
+
 
 ## 模块说明
 
