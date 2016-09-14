@@ -1,37 +1,44 @@
-# Coding WebIDE Workspace
+# Coding WebIDE
 
-## 项目说明
+[中文 README](https://github.com/Coding/WebIDE-Workspace/blob/master/README-zh.md)
 
-本项目是为了能够一键启动 `WebIDE` 开源版而创建的，以 git 子模块的形式引用了另外的三个项目，分别是 WebIDE-Frontend、WebIDE-Frontend-Webjars、WebIDE-Backend。
+This is the entry point to setup and run the WebIDE Community Edition project. It includes other 3 repos as git submodules.
 
-## 模块说明
+Please submit issues to corresponding projects, that'll help us make issues tracking easier so that we can provide timely help to you. Submit frontend issues at [WebIDE-Frontend](https://github.com/Coding/WebIDE-Frontend/issues) and backend issues at [WebIDE-Backend](https://github.com/Coding/WebIDE-Backend/issues).
 
-> **WebIDE-Frontend:** WebIDE 前端项目  
-> **WebIDE-Frontend-Webjars:** webjar 项目，用于将 WebIDE 前端打包成 webjar  
-> **WebIDE-Backend:** WebIDE 后端项目  
 
-## Clone 项目
+## Modules
 
-首先 clone 本项目到本地，然后拉取子项目:
+> [WebIDE-Frontend](https://github.com/Coding/WebIDE-Frontend) contains frontend code.  
+> [WebIDE-Frontend-Webjars](https://github.com/Coding/WebIDE-Frontend-Webjars) packs frontend to webjar.  
+> [WebIDE-Backend](https://github.com/Coding/WebIDE-Backend) contains backend code.  
 
-> git submodule init  
-> git submodule update
 
-即可拉取子项目到本地。
+## How to clone
 
-## 运行环境
+Clone this git repo to local. Then do:
 
-**WebIDE Frontend 依赖 npm 做包管理，wepack 和 babel 做构建工具**  
-**WebIDE-Frontend-Webjars & WebIDE-Backend 项目依赖 maven**
+```
+git submodule init
+git submodule update
+```
 
-在编译、运行项目前，请保证环境依赖已被正确配置。
+This will also clone the other 3 repos via git submodule mechanism.
 
-## 编译、打包、运行
 
-本项目提供了一个脚本 `ide.sh`，用于编译、打包、运行项目：
+## Environment
 
-> **./ide.sh build:** 编译并打包前端项目  
-> **./ide.sh run:** 启动项目
+WebIDE Frontend uses `npm` for package management, `webpack` and `babel` for building.  
+WebIDE Frontend Webjars & WebIDE Backend use `maven`.  
 
-启动完成后，默认端口为 8080，访问 localhost:8080 即可。
+Please ensure you have corresponding tools installed in your environment before build and run the project.
 
+
+## Build and run
+
+We provide a shell script `ide.sh` to ease the build and run process
+
+> **./ide.sh build:** builds the frontend and packs to webjars  
+> **./ide.sh run:** start the backend and server
+
+Server runs on port 8080 by default, visit localhost:8080 to check it out. Have fun!
