@@ -1,14 +1,20 @@
 #!/bin/bash
 
 BASEDIR=$(cd "$(dirname "$0")"; pwd)
-PROG_NAME=$(basename $0)
 
-BACKEND_URL="http://localhost:8080"
-FRONTEND_URL="http://localhost:8080"
+echo "BASEDIR: $BASEDIR" # todo
+
+PROG_NAME=$(basename $0)
 
 BACKEND=$BASEDIR/backend
 FRONTEND=$BASEDIR/frontend
 FRONTEND_WEBJARS=$BASEDIR/frontend-webjars
+
+valid_last_cmd() {
+  if [ $? -ne 0 ]; then
+      exit 1
+  fi
+}
 
 sub_help(){
   echo "Usage: $PROG_NAME [-e <subcommand>"
@@ -39,6 +45,19 @@ sub_backend() {
   esac
 }
 
+do_build_frontend() {
+  cd $FRONTEND
+  npm install --registry=https://registry.npm.taobao.org
+  npm run build
+
+  valid_last_cmd
+
+  cd $FRONTEND_WEBJARS
+  mvn clean install
+  valid_last_cmd
+  cd $BASEDIR
+}
+
 sub_build() {
 
     build_usage() {
@@ -47,23 +66,67 @@ sub_build() {
 
     case $1 in
     "-h" | "--help")
-        build_usage
-        ;;
+      build_usage
+      ;;
     "" | "frontend")
-      cd $FRONTEND
-      npm install --registry=https://registry.npm.taobao.org
-      npm run build
-
-      cd $FRONTEND_WEBJARS
-      mvn clean install
-      
-      cd $BASEDIR
+      do_build_frontend
+      ;;
+    "run") # build and run
+      do_build_frontend
+      do_run_backend
       ;;
     esac
 }
 
-sub_run() {
+error() {
+  printf  "${RED}ERROR:${NC} %s\n" "${1}"
+}
 
+error_exit() {
+#  echo  "---------------------------------------"
+#  error "!!!"
+  error "${1}"
+#  error "!!!"
+#  echo  "---------------------------------------"
+  exit 1
+}
+
+sub_docker() {
+
+    check_docker() {
+      if ! docker ps > /dev/null 2>&1; then
+        output=$(docker ps)
+        error_exit "Error - Docker not installed properly: \n${output}"
+      fi
+    }
+
+    docker_usage() {
+      echo "Usage: $PROG_NAME docker [build|run]"
+    }
+
+    check_docker
+
+    case $1 in
+    "-h" | "--help")
+      docker_usage
+      ;;
+    "build")
+      docker build -t coding/webide .
+      ;;
+    "run")
+      docker run -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 --name webide coding/webide
+      ;;
+    esac
+}
+
+do_run_backend() {
+  cd $BACKEND
+  mvn clean spring-boot:run
+  valid_last_cmd
+  cd $BASEDIR
+}
+
+sub_run() {
     run_usage() {
         echo "Usage: $PROG_NAME run"
     }
@@ -73,9 +136,7 @@ sub_run() {
         run_usage
         ;;
     "")
-        cd $BACKEND
-        mvn clean spring-boot:run
-        cd $BASEDIR
+        do_run_backend
         ;;
     esac
 }
