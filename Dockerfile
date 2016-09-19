@@ -12,8 +12,8 @@ RUN useradd --create-home --home-dir /home/coding --shell /usr/bin/bash coding \
 
 USER coding
 
-ADD . /home/coding/WebIDE
+ADD . /opt/coding/WebIDE
 
-RUN sudo chown -R coding /home/coding/WebIDE
+RUN sudo chown -R coding /opt/coding/WebIDE
 
-CMD ["/home/coding/WebIDE/ide.sh", "build", "run"]
+CMD ["/opt/coding/WebIDE/ide.sh", "build", "run"]

@@ -7,6 +7,7 @@ PROG_NAME=$(basename $0)
 BACKEND=$BASEDIR/backend
 FRONTEND=$BASEDIR/frontend
 FRONTEND_WEBJARS=$BASEDIR/frontend-webjars
+CONTAINER=webide
 
 valid_last_cmd() {
   if [ $? -ne 0 ]; then
@@ -90,19 +91,48 @@ error_exit() {
 }
 
 valid_container_exist() {
-  CONTAINER=$1
-
   RUNNING=$(docker inspect --format="{{ .State.Running }}" $CONTAINER 2> /dev/null)
 
   if [ $? -eq 1 ]; then
-  echo "UNKNOWN - $CONTAINER does not exist."
-  exit 3
+    echo "UNKNOWN - container $CONTAINER does not exist."
+    exit 3
+  fi
+}
+
+assert_container_is_running() {
+  RUNNING=$(docker inspect --format="{{ .State.Running }}" $CONTAINER 2> /dev/null)
+
+  if [ $? -eq 1 ]; then
+    echo "UNKNOWN - $CONTAINER does not exist."
+    exit 3
   fi
 
+  if [ "$RUNNING" == "false" ]; then
+    echo "CRITICAL - $CONTAINER is not running."
+    exit 2
+  fi
+}
+
+container_exist() {
+  RUNNING=$(docker inspect --format="{{ .State.Running }}" $CONTAINER 2> /dev/null)
+
+  if [ $? -eq 1 ]; then
+    echo "UNKNOWN - $CONTAINER does not exist."
+    exit 3
+  fi
+}
+
+container_is_running() {
+  RUNNING=$(docker inspect --format="{{ .State.Running }}" $CONTAINER 2> /dev/null)
+
+  if [ $? -eq 1 ]; then
+    return 1
+  fi
 
   if [ "$RUNNING" == "true" ]; then
-    echo "CRITICAL - $CONTAINER is running."
-    exit 2
+    return 0
+  else
+    return 1
   fi
 }
 
@@ -131,25 +161,42 @@ sub_docker() {
     "run")
       RUNNING=$(docker inspect --format="{{ .State.Running }}" $CONTAINER 2> /dev/null)
 
-      if [ $? -eq 0 ]; then
-        docker run -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 --name webide coding/webide
-      else
-        if [ "$RUNNING" == "true" ]; then
-          echo "CRITICAL - $CONTAINER is running."
-          exit 2
-        fi
-
-        docker start webide
+      if ! container_exist ; then
+        "creating container $CONTAINER"
+        docker create -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide coding/webide
+        valid_last_cmd
+      elif [ "$RUNNING" == "true" ]; then
+        echo "CRITICAL - $CONTAINER is running."
+        exit 2
       fi
+
+      echo "starting container $CONTAINER"
+      docker start webide
       ;;
     "stop")
+      assert_container_is_running
       docker stop webide
       ;;
     "attach")
+      assert_container_is_running
       docker attach webide
       ;;
     "logs")
+      assert_container_is_running
       docker logs webide
+      ;;
+    "remove")
+      if container_is_running ; then
+        echo "stoping webide..."
+        docker stop webide
+      fi
+      echo "removing webide..."
+      docker rm webide
+      echo "done..."
+      ;;
+    "exec")
+      assert_container_is_running
+      docker exec -it webide bash
       ;;
     esac
 }

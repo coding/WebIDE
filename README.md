@@ -83,6 +83,7 @@ Server runs on port 8080 by default, visit localhost:8080 to check it out.
 ./ide.sh docker stop   # stop container
 ./ide.sh docker attach # attach container
 ./ide.sh docker logs   # check container's logs
+./ide.sh docker exec   # create a new Bash session in the container
 ```
 
 #### Using `docker` CLI
@@ -94,7 +95,7 @@ If you encounter any problem using `ide.sh`, try get around it using docker CLI 
 docker build -t coding/webide
 
 # create and start a container
-docker run -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 --name webide coding/webide
+docker run -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide coding/webide
 
 # stop container
 docker stop webide
@@ -104,4 +105,7 @@ docker attach webide
 
 # check container's logs
 docker logs webide
+
+# create a new Bash session in the container
+docker exec -it webide bash
 ```

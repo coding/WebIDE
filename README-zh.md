@@ -40,7 +40,6 @@ WebIDE-Frontend-Webjars & WebIDE-Backend 项目依赖 **maven3** 和 **java8**
 
 在编译、运行项目前，请保证环境依赖已被正确配置。
 
-
 ## 编译、打包、运行
 
 ### 克隆项目
@@ -66,11 +65,10 @@ git submodule update
 本项目提供了一个脚本 `ide.sh`，用于编译、打包、运行项目：
 
 ```
-./ide.sh build   # 编译并打包前端项目
+./ide.sh build   # 编译并打包前端项目  
 ./ide.sh run     # 启动项目
 ```
 启动完成后，默认端口为 8080，访问 localhost:8080 即可。打开浏览器访问 http://localhost:8080
-
 
 ### Docker 版
 
@@ -82,6 +80,7 @@ git submodule update
 ./ide.sh docker stop   # 停止 container
 ./ide.sh docker attach # attach container
 ./ide.sh docker logs   # 查看 container log
+./ide.sh docker exec   # 进入 container
 ```
 
 #### 通过使用 docker 命令
@@ -93,7 +92,7 @@ git submodule update
 docker build -t coding/webide
 
 # 创建并启动 container
-docker run -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 --name webide coding/webide
+docker run -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide coding/webide
 
 # 停止 container
 docker stop webide
@@ -103,4 +102,7 @@ docker attach webide
 
 # 查看 container log
 docker logs webide
+
+# 进入 container
+docker exec -it webide bash
 ```
