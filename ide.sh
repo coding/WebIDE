@@ -2,8 +2,6 @@
 
 BASEDIR=$(cd "$(dirname "$0")"; pwd)
 
-echo "BASEDIR: $BASEDIR" # todo
-
 PROG_NAME=$(basename $0)
 
 BACKEND=$BASEDIR/backend
@@ -91,6 +89,23 @@ error_exit() {
   exit 1
 }
 
+valid_container_exist() {
+  CONTAINER=$1
+
+  RUNNING=$(docker inspect --format="{{ .State.Running }}" $CONTAINER 2> /dev/null)
+
+  if [ $? -eq 1 ]; then
+  echo "UNKNOWN - $CONTAINER does not exist."
+  exit 3
+  fi
+
+
+  if [ "$RUNNING" == "true" ]; then
+    echo "CRITICAL - $CONTAINER is running."
+    exit 2
+  fi
+}
+
 sub_docker() {
 
     check_docker() {
@@ -101,7 +116,7 @@ sub_docker() {
     }
 
     docker_usage() {
-      echo "Usage: $PROG_NAME docker [build|run]"
+      echo "Usage: $PROG_NAME docker [build|run|attach|stop|logs]"
     }
 
     check_docker
@@ -114,7 +129,27 @@ sub_docker() {
       docker build -t coding/webide .
       ;;
     "run")
-      docker run -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 --name webide coding/webide
+      RUNNING=$(docker inspect --format="{{ .State.Running }}" $CONTAINER 2> /dev/null)
+
+      if [ $? -eq 0 ]; then
+        docker run -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 --name webide coding/webide
+      else
+        if [ "$RUNNING" == "true" ]; then
+          echo "CRITICAL - $CONTAINER is running."
+          exit 2
+        fi
+
+        docker start webide
+      fi
+      ;;
+    "stop")
+      docker stop webide
+      ;;
+    "attach")
+      docker attach webide
+      ;;
+    "logs")
+      docker logs webide
       ;;
     esac
 }
