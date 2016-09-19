@@ -166,9 +166,6 @@ sub_docker() {
     "run")
       RUNNING=$(docker inspect --format="{{ .State.Running }}" $CONTAINER 2> /dev/null)
 
-      exist=$(container_exist)
-      echo "exist : $exist"
-
       if ! container_exist ; then
         echo "creating container $CONTAINER"
         docker create -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide coding/webide
