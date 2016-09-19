@@ -21,6 +21,7 @@ sub_help(){
   echo "Subcommands:"
   echo "  build"
   echo "  run"
+  echo "  docker [build|run|attach|stop|logs|exec]"
   echo ""
   echo "For help with each subcommand run:"
   echo "$PROG_NAME <subcommand> -h | --help"
@@ -46,12 +47,15 @@ sub_backend() {
 
 do_build_frontend() {
   cd $FRONTEND
+  echo "npm install..."
   npm install --registry=https://registry.npm.taobao.org
-  npm run build
 
+  echo "building frontend..."
+  npm run build
   valid_last_cmd
 
   cd $FRONTEND_WEBJARS
+  echo "packing frontend...."
   mvn clean install
   valid_last_cmd
   cd $BASEDIR
@@ -114,11 +118,12 @@ assert_container_is_running() {
 }
 
 container_exist() {
-  RUNNING=$(docker inspect --format="{{ .State.Running }}" $CONTAINER 2> /dev/null)
+  $(docker inspect --format="{{ .State.Running }}" $CONTAINER 2> /dev/null)
 
   if [ $? -eq 1 ]; then
-    echo "UNKNOWN - $CONTAINER does not exist."
-    exit 3
+    return 1
+  else
+    return 0
   fi
 }
 
@@ -146,7 +151,7 @@ sub_docker() {
     }
 
     docker_usage() {
-      echo "Usage: $PROG_NAME docker [build|run|attach|stop|logs]"
+      echo "Usage: $PROG_NAME docker [build|run|attach|stop|logs|exec]"
     }
 
     check_docker
@@ -162,7 +167,7 @@ sub_docker() {
       RUNNING=$(docker inspect --format="{{ .State.Running }}" $CONTAINER 2> /dev/null)
 
       if ! container_exist ; then
-        "creating container $CONTAINER"
+        echo "creating container $CONTAINER"
         docker create -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide coding/webide
         valid_last_cmd
       elif [ "$RUNNING" == "true" ]; then
@@ -204,7 +209,6 @@ sub_docker() {
 do_run_backend() {
   cd $BACKEND
   mvn clean spring-boot:run
-  valid_last_cmd
   cd $BASEDIR
 }
 
