@@ -118,12 +118,12 @@ assert_container_is_running() {
 }
 
 container_exist() {
-  $(docker inspect --format="{{ .State.Running }}" $CONTAINER 2> /dev/null)
+  RUNNING=$(docker inspect --format="{{ .State.Running }}" $CONTAINER 2> /dev/null)
 
-  if [ $? -eq 1 ]; then
-    return 1
-  else
+  if [ $? -eq 0 ]; then
     return 0
+  else
+    return 1
   fi
 }
 
@@ -165,6 +165,9 @@ sub_docker() {
       ;;
     "run")
       RUNNING=$(docker inspect --format="{{ .State.Running }}" $CONTAINER 2> /dev/null)
+
+      exist=$(container_exist)
+      echo "exist : $exist"
 
       if ! container_exist ; then
         echo "creating container $CONTAINER"
