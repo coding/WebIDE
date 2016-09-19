@@ -22,8 +22,6 @@ Coding WebIDE(https://ide.coding.net) 是 Coding 自主研发的在线集成开�
 
 本项目是为了能够一键启动 `WebIDE` 开源版而创建的，以 git 子模块的形式引用了另外的三个项目，分别是 WebIDE-Frontend、WebIDE-Frontend-Webjars、WebIDE-Backend。
 
-
-
 ## 模块说明
 
 > **WebIDE-Frontend:** WebIDE 前端项目
@@ -33,7 +31,7 @@ Coding WebIDE(https://ide.coding.net) 是 Coding 自主研发的在线集成开�
 ## 运行环境
 
 **WebIDE Frontend 依赖 npm 做包管理，wepack 和 babel 做构建工具**
-**WebIDE-Frontend-Webjars & WebIDE-Backend 项目依赖 maven 和 java8**
+**WebIDE-Frontend-Webjars & WebIDE-Backend 项目依赖 maven3 和 java8**
 
 在编译、运行项目前，请保证环境依赖已被正确配置。
 
@@ -96,7 +94,7 @@ attach container:
 
 > ./ide.sh docker logs
 
-### 通过使用 docker 命令
+#### 通过使用 docker 命令
 
 如果在使用脚本的过程中遇到了困难，可以直接使用 docker 的命令。
 
