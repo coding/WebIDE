@@ -33,7 +33,7 @@ Coding WebIDE(https://ide.coding.net) 是 Coding 自主研发的在线集成开�
 ## 运行环境
 
 **WebIDE Frontend 依赖 npm 做包管理，wepack 和 babel 做构建工具**
-**WebIDE-Frontend-Webjars & WebIDE-Backend 项目依赖 maven**
+**WebIDE-Frontend-Webjars & WebIDE-Backend 项目依赖 maven 和 java8**
 
 在编译、运行项目前，请保证环境依赖已被正确配置。
 
