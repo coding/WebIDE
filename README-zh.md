@@ -111,9 +111,9 @@ webide 镜像已上传到 docker hub: [webide](https://hub.docker.com/r/webide/w
 docker run -p 8080:8080 --name webide webide/webide
 ```
 
-如果想保留这些状态，请确保 `$HOME/.m2`、`$HOME/.coding-ide-home` 存在，如果不存在，请**手动创建**。然后将目录挂载即可：
+如果想保留这些状态，请确保 `$HOME/.coding-ide-home` 存在，如果不存在，请**手动创建**。然后将目录挂载即可：
 ```
-docker create -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide webide/webide
+docker create -p 8080:8080 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide webide/webide
 ```
 
 ##### 编译、运行

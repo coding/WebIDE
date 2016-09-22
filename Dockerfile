@@ -16,4 +16,10 @@ ADD . /opt/coding/WebIDE
 
 RUN sudo chown -R coding /opt/coding/WebIDE
 
-CMD ["/opt/coding/WebIDE/ide.sh", "build", "run"]
+RUN cd /opt/coding/WebIDE/frontend && npm install && npm run build
+
+RUN cd /opt/coding/WebIDE/frontend-webjars && mvn -s ../mvn_settings.xml clean install
+
+RUN cd /opt/coding/WebIDE/backend && mvn -s ../mvn_settings.xml clean package -Dmaven.test.skip=true
+
+CMD ["java", "-jar", "/opt/coding/WebIDE/backend/target/ide-backend.jar", "--PTY_LIB_FOLDER=\"/opt/coding/WebIDE/backend/src/main/resources/lib\""]

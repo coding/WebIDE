@@ -111,9 +111,9 @@ If app state persistency is not important to you (that is, app data will be gone
 docker run -p 8080:8080 --name webide webide/webide
 ```
 
-Howerver, if you want to persist app state, you need to make sure `$HOME/.m2`, `$HOME/.coding-ide-home` directories exist. If not, you need to **manually create them**, then run:
+Howerver, if you want to persist app state, you need to make sure `$HOME/.coding-ide-home` directories exist. If not, you need to **manually create them**, then run:
 ```
-docker create -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide webide/webide
+docker create -p 8080:8080 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide webide/webide
 ```
 
 Rebuild and run with:

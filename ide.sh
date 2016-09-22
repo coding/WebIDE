@@ -8,7 +8,6 @@ BACKEND=$BASEDIR/backend
 FRONTEND=$BASEDIR/frontend
 FRONTEND_WEBJARS=$BASEDIR/frontend-webjars
 CONTAINER=webide
-MAVEN_DIR=$HOME/.m2
 CODING_IDE_HOME=$HOME/.coding-ide-home
 
 valid_last_cmd() {
@@ -176,11 +175,10 @@ sub_docker() {
       RUNNING=$(docker inspect --format="{{ .State.Running }}" $CONTAINER 2> /dev/null)
 
       if ! container_exist ; then
-        create_dir_if_not_exist $HOME/.m2
         create_dir_if_not_exist $HOME/.coding-ide-home
-        
+
         echo "creating container $CONTAINER"
-        docker create -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide webide/webide
+        docker create -p 8080:8080 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide webide/webide
         valid_last_cmd
       elif [ "$RUNNING" == "true" ]; then
         echo "CRITICAL - $CONTAINER is running."
