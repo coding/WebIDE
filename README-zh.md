@@ -74,31 +74,69 @@ git submodule update
 
 #### 通过使用 ide.sh
 
+##### 直接运行
+
+webide 镜像已上传到 [docker hub](https://hub.docker.com/r/webide/webide/)，可以直接从 docker hub 拉取镜像、创建容器并执行：
+
+```
+./ide.sh docker run
+```
+
+##### 编译，运行
+
+如果对代码进行了修改，想要从源代码编译、运行，可以执行：
+
+```
+./ide.sh docker build  # 创建 docker 镜像
+./ide.sh docker run    # 创建并启动 container
+```
+
+##### docker 相关命令
+
 ```
 ./ide.sh docker build  # 创建 docker 镜像
 ./ide.sh docker run    # 创建并启动 container
 ./ide.sh docker stop   # 停止 container
-./ide.sh docker attach # attach container
+./ide.sh docker attach # attach container(use control-c to exit)
 ./ide.sh docker logs   # 查看 container log
 ./ide.sh docker exec   # 进入 container
+./ide.sh docker remove # 删除 container
 ```
 
 #### 通过使用 docker 命令
 
 如果在使用脚本的过程中遇到了困难，可以直接使用 docker 的命令。
 
+##### 直接运行
+
+如果不想保存应用的状态，即删除 container 后，应用的数据也会消失，可以执行：
+
 ```
-# 创建 docker 镜像
-docker build -t coding/webide
+docker run -p 8080:8080 --name webide webide/webide
+```
 
-# 创建并启动 container
-docker run -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide coding/webide
+如果想保留这些状态，请确保 `$HOME/.m2`、`$HOME/.coding-ide-home` 存在，如果不存在，请**手动创建**。然后将目录挂载即可：
 
+```
+docker create -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide webide/webide
+```
+
+##### 编译、运行
+
+```
+docker build -t webide/webide
+
+docker run -p 8080:8080 --name webide webide/webide
+```
+
+##### docker 相关命令
+
+```
 # 停止 container
 docker stop webide
 
 # attach container
-docker attach webide
+docker attach --sig-proxy=false webide
 
 # 查看 container log
 docker logs webide
