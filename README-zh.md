@@ -40,6 +40,7 @@ WebIDE-Frontend-Webjars & WebIDE-Backend 项目依赖 **maven3** 和 **java8**
 
 在编译、运行项目前，请保证环境依赖已被正确配置。
 
+
 ## 编译、打包、运行
 
 ### 克隆项目
@@ -59,6 +60,8 @@ git clone git@github.com:Coding/WebIDE.git
 git submodule init
 git submodule update
 ```
+这样就会通过 git 的 submodule 机制 clone 另外 3 个 repo
+
 
 ### 本机版
 
@@ -70,29 +73,23 @@ git submodule update
 ```
 启动完成后，默认端口为 8080，访问 localhost:8080 即可。打开浏览器访问 http://localhost:8080
 
+
 ### Docker 版
 
-#### 通过使用 ide.sh
-
-##### 直接运行
-
-webide 镜像已上传到 [docker hub](https://hub.docker.com/r/webide/webide/)，可以直接从 docker hub 拉取镜像、创建容器并执行：
-
+webide 镜像已上传到 docker hub: [webide](https://hub.docker.com/r/webide/webide/)，可以直接从 docker hub 拉取镜像、创建容器并执行：
 ```
 ./ide.sh docker run
 ```
 
-##### 编译，运行
+#### 使用 ide.sh
 
 如果对代码进行了修改，想要从源代码编译、运行，可以执行：
-
 ```
 ./ide.sh docker build  # 创建 docker 镜像
 ./ide.sh docker run    # 创建并启动 container
 ```
 
-##### docker 相关命令
-
+以下是 `ide.sh` 里包含的 docker 相关命令
 ```
 ./ide.sh docker build  # 创建 docker 镜像
 ./ide.sh docker run    # 创建并启动 container
@@ -103,34 +100,29 @@ webide 镜像已上传到 [docker hub](https://hub.docker.com/r/webide/webide/)�
 ./ide.sh docker remove # 删除 container
 ```
 
-#### 通过使用 docker 命令
+#### 使用 docker 命令
 
 如果在使用脚本的过程中遇到了困难，可以直接使用 docker 的命令。
 
 ##### 直接运行
 
 如果不想保存应用的状态，即删除 container 后，应用的数据也会消失，可以执行：
-
 ```
 docker run -p 8080:8080 --name webide webide/webide
 ```
 
 如果想保留这些状态，请确保 `$HOME/.m2`、`$HOME/.coding-ide-home` 存在，如果不存在，请**手动创建**。然后将目录挂载即可：
-
 ```
 docker create -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide webide/webide
 ```
 
 ##### 编译、运行
-
 ```
 docker build -t webide/webide
-
 docker run -p 8080:8080 --name webide webide/webide
 ```
 
-##### docker 相关命令
-
+以下是常用的 docker 相关命令
 ```
 # 停止 container
 docker stop webide
