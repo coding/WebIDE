@@ -49,6 +49,7 @@ Clone from coding.net:
 ```
 git clone git@git.coding.net:coding/WebIDE.git
 ```
+
 Clone from github.com:
 ```
 git clone git@github.com:Coding/WebIDE.git
@@ -75,8 +76,20 @@ Server runs on port 8080 by default, visit localhost:8080 to check it out.
 
 ### Run in a docker container
 
+We've provides a docker image on docker hub: [webide](https://hub.docker.com/r/webide/webide/). Pull it and create a container, then run with command:
+```
+./ide.sh docker run
+```
+
 #### Using `ide.sh`
 
+If you make changes on source code, you can recompile and run with commands:
+```
+./ide.sh docker build
+./ide.sh docker run
+```
+
+Listed below are all docker related command in `ide.sh`
 ```
 ./ide.sh docker build  # create docker image
 ./ide.sh docker run    # create and start a container
@@ -84,19 +97,33 @@ Server runs on port 8080 by default, visit localhost:8080 to check it out.
 ./ide.sh docker attach # attach container(use control-c to exit)
 ./ide.sh docker logs   # check container's logs
 ./ide.sh docker exec   # create a new Bash session in the container
+./ide.sh docker remove # remove container
 ```
 
 #### Using `docker` CLI
 
 If you encounter any problem using `ide.sh`, try get around it using docker CLI directly.
 
+##### Run
+
+If app state persistency is not important to you (that is, app data will be gone when container get deleted), simply run this one-liner:
 ```
-# create docker image
+docker run -p 8080:8080 --name webide webide/webide
+```
+
+Howerver, if you want to persist app state, you need to make sure `$HOME/.m2`, `$HOME/.coding-ide-home` directories exist. If not, you need to **manually create them**, then run:
+```
+docker create -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide webide/webide
+```
+
+Rebuild and run with:
+```
 docker build -t webide/webide
+docker run -p 8080:8080 --name webide webide/webide
+```
 
-# create and start a container
-docker run -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide webide/webide
-
+Listed below are other frequently used docker commands
+```
 # stop container
 docker stop webide
 
