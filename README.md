@@ -60,6 +60,14 @@ git submodule update
 ```
 This will also clone the other 3 repos via git submodule mechanism.
 
+We provide a shell script `ide.sh` to ease the process for you.
+
+```
+./ide.sh build   # transpile and pack the frontend to webjars
+./ide.sh run     # start the backend server
+```
+Server runs on port 8080 by default, visit localhost:8080 to check it out.
+
 ## Docker Server
 
 ```
