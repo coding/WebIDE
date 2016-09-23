@@ -22,4 +22,4 @@ RUN cd /opt/coding/WebIDE/frontend-webjars && mvn -s ../mvn_settings.xml clean i
 
 RUN cd /opt/coding/WebIDE/backend && mvn -s ../mvn_settings.xml clean package -Dmaven.test.skip=true
 
-CMD ["java", "-jar", "/opt/coding/WebIDE/backend/target/ide-backend.jar", "--PTY_LIB_FOLDER=\"/opt/coding/WebIDE/backend/src/main/resources/lib\""]
+CMD ["java", "-jar", "/opt/coding/WebIDE/backend/target/ide-backend.jar", "--PTY_LIB_FOLDER=/opt/coding/WebIDE/backend/src/main/resources/lib"]

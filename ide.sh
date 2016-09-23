@@ -187,6 +187,8 @@ sub_docker() {
 
       echo "starting container $CONTAINER"
       docker start webide
+      valid_last_cmd
+      docker attach --sig-proxy=false webide
       ;;
     "stop")
       assert_container_is_running
