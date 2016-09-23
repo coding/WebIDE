@@ -8,6 +8,7 @@ BACKEND=$BASEDIR/backend
 FRONTEND=$BASEDIR/frontend
 FRONTEND_WEBJARS=$BASEDIR/frontend-webjars
 CONTAINER=webide
+CODING_IDE_HOME=$HOME/.coding-ide-home
 
 valid_last_cmd() {
   if [ $? -ne 0 ]; then
@@ -141,6 +142,13 @@ container_is_running() {
   fi
 }
 
+create_dir_if_not_exist() {
+  if [ ! -d "$1" ]; then
+    echo "$1 is not exist, creating..."
+    mkdir $1
+  fi
+}
+
 sub_docker() {
 
     check_docker() {
@@ -161,14 +169,16 @@ sub_docker() {
       docker_usage
       ;;
     "build")
-      docker build -t coding/webide .
+      docker build -t webide/webide .
       ;;
     "run")
       RUNNING=$(docker inspect --format="{{ .State.Running }}" $CONTAINER 2> /dev/null)
 
       if ! container_exist ; then
+        create_dir_if_not_exist $HOME/.coding-ide-home
+
         echo "creating container $CONTAINER"
-        docker create -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide coding/webide
+        docker create -p 8080:8080 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide webide/webide
         valid_last_cmd
       elif [ "$RUNNING" == "true" ]; then
         echo "CRITICAL - $CONTAINER is running."
@@ -177,6 +187,8 @@ sub_docker() {
 
       echo "starting container $CONTAINER"
       docker start webide
+      valid_last_cmd
+      docker attach --sig-proxy=false webide
       ;;
     "stop")
       assert_container_is_running
@@ -184,7 +196,7 @@ sub_docker() {
       ;;
     "attach")
       assert_container_is_running
-      docker attach webide
+      docker attach --sig-proxy=false webide
       ;;
     "logs")
       assert_container_is_running

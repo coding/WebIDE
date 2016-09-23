@@ -40,9 +40,7 @@ WebIDE-Frontend-Webjars & WebIDE-Backend 项目依赖 **maven3** 和 **java8**
 
 在编译、运行项目前，请保证环境依赖已被正确配置。
 
-## 编译、打包、运行
-
-### 克隆项目
+## Server 版
 
 从 Coding 克隆项目：
 ```
@@ -59,50 +57,17 @@ git clone git@github.com:Coding/WebIDE.git
 git submodule init
 git submodule update
 ```
-
-### 本机版
-
-本项目提供了一个脚本 `ide.sh`，用于编译、打包、运行项目：
+这样就会通过 git 的 submodule 机制 clone 另外 3 个 repo。
 
 ```
 ./ide.sh build   # 编译并打包前端项目  
 ./ide.sh run     # 启动项目
 ```
-启动完成后，默认端口为 8080，访问 localhost:8080 即可。打开浏览器访问 http://localhost:8080
 
-### Docker 版
-
-#### 通过使用 ide.sh
+## docker 版
 
 ```
-./ide.sh docker build  # 创建 docker 镜像
-./ide.sh docker run    # 创建并启动 container
-./ide.sh docker stop   # 停止 container
-./ide.sh docker attach # attach container
-./ide.sh docker logs   # 查看 container log
-./ide.sh docker exec   # 进入 container
+docker run -p 8080:8080 --name webide webide/webide
 ```
 
-#### 通过使用 docker 命令
-
-如果在使用脚本的过程中遇到了困难，可以直接使用 docker 的命令。
-
-```
-# 创建 docker 镜像
-docker build -t coding/webide
-
-# 创建并启动 container
-docker run -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide coding/webide
-
-# 停止 container
-docker stop webide
-
-# attach container
-docker attach webide
-
-# 查看 container log
-docker logs webide
-
-# 进入 container
-docker exec -it webide bash
-```
+更多 docker 命令，参照 wiki [English](https://github.com/Coding/WebIDE/wiki/Docker-Server.en) [中文](https://github.com/Coding/WebIDE/wiki/Docker-Server.zh)

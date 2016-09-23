@@ -41,14 +41,13 @@ Frontend Webjars & WebIDE Backend use **maven3** and **java8**.
 Please ensure you have corresponding tools installed in your environment before build and run the project.
 
 
-## Build and run
-
-### Clone the repo
+## Native Server
 
 Clone from coding.net:
 ```
 git clone git@git.coding.net:coding/WebIDE.git
 ```
+
 Clone from github.com:
 ```
 git clone git@github.com:Coding/WebIDE.git
@@ -61,9 +60,6 @@ git submodule update
 ```
 This will also clone the other 3 repos via git submodule mechanism.
 
-
-### Run on a normal host
-
 We provide a shell script `ide.sh` to ease the process for you.
 
 ```
@@ -72,40 +68,10 @@ We provide a shell script `ide.sh` to ease the process for you.
 ```
 Server runs on port 8080 by default, visit localhost:8080 to check it out.
 
-
-### Run in a docker container
-
-#### Using `ide.sh`
+## Docker Server
 
 ```
-./ide.sh docker build  # create docker image
-./ide.sh docker run    # create and start a container
-./ide.sh docker stop   # stop container
-./ide.sh docker attach # attach container
-./ide.sh docker logs   # check container's logs
-./ide.sh docker exec   # create a new Bash session in the container
+docker run -p 8080:8080 --name webide webide/webide
 ```
 
-#### Using `docker` CLI
-
-If you encounter any problem using `ide.sh`, try get around it using docker CLI directly.
-
-```
-# create docker image
-docker build -t coding/webide
-
-# create and start a container
-docker run -p 8080:8080 -v $HOME/.m2:/home/coding/.m2 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide coding/webide
-
-# stop container
-docker stop webide
-
-# attach container
-docker attach webide
-
-# check container's logs
-docker logs webide
-
-# create a new Bash session in the container
-docker exec -it webide bash
-```
+To learn more about docker commands，please refer to wiki [English](https://github.com/Coding/WebIDE/wiki/Docker-Server.en) [中文](https://github.com/Coding/WebIDE/wiki/Docker-Server.zh)
