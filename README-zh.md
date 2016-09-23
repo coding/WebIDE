@@ -40,10 +40,7 @@ WebIDE-Frontend-Webjars & WebIDE-Backend 项目依赖 **maven3** 和 **java8**
 
 在编译、运行项目前，请保证环境依赖已被正确配置。
 
-
-## 编译、打包、运行
-
-### 克隆项目
+## Server 版
 
 从 Coding 克隆项目：
 ```
@@ -60,79 +57,17 @@ git clone git@github.com:Coding/WebIDE.git
 git submodule init
 git submodule update
 ```
-这样就会通过 git 的 submodule 机制 clone 另外 3 个 repo
-
-
-### 本机版
-
-本项目提供了一个脚本 `ide.sh`，用于编译、打包、运行项目：
+这样就会通过 git 的 submodule 机制 clone 另外 3 个 repo。
 
 ```
 ./ide.sh build   # 编译并打包前端项目  
 ./ide.sh run     # 启动项目
 ```
-启动完成后，默认端口为 8080，访问 localhost:8080 即可。打开浏览器访问 http://localhost:8080
 
+## docker 版
 
-### Docker 版
-
-webide 镜像已上传到 docker hub: [webide](https://hub.docker.com/r/webide/webide/)，可以直接从 docker hub 拉取镜像、创建容器并执行：
-```
-./ide.sh docker run
-```
-
-#### 使用 ide.sh
-
-如果对代码进行了修改，想要从源代码编译、运行，可以执行：
-```
-./ide.sh docker build  # 创建 docker 镜像
-./ide.sh docker run    # 创建并启动 container
-```
-
-以下是 `ide.sh` 里包含的 docker 相关命令
-```
-./ide.sh docker build  # 创建 docker 镜像
-./ide.sh docker run    # 创建并启动 container
-./ide.sh docker stop   # 停止 container
-./ide.sh docker attach # attach container(use control-c to exit)
-./ide.sh docker logs   # 查看 container log
-./ide.sh docker exec   # 进入 container
-./ide.sh docker remove # 删除 container
-```
-
-#### 使用 docker 命令
-
-如果在使用脚本的过程中遇到了困难，可以直接使用 docker 的命令。
-
-##### 直接运行
-
-如果不想保存应用的状态，即删除 container 后，应用的数据也会消失，可以执行：
 ```
 docker run -p 8080:8080 --name webide webide/webide
 ```
 
-如果想保留这些状态，请确保 `$HOME/.coding-ide-home` 存在，如果不存在，请**手动创建**。然后将目录挂载即可：
-```
-docker create -p 8080:8080 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide webide/webide
-```
-
-##### 编译、运行
-```
-docker build -t webide/webide
-docker run -p 8080:8080 --name webide webide/webide
-```
-
-以下是常用的 docker 相关命令
-```
-# 停止 container
-docker stop webide
-
-# attach container
-docker attach --sig-proxy=false webide
-
-# 查看 container log
-docker logs webide
-
-# 进入 container
-docker exec -it webide bash
-```
+更多 docker 命令，参照 wiki [English](https://github.com/Coding/WebIDE/wiki/Docker-Server.en) [中文](https://github.com/Coding/WebIDE/wiki/Docker-Server.zh)

@@ -41,9 +41,7 @@ Frontend Webjars & WebIDE Backend use **maven3** and **java8**.
 Please ensure you have corresponding tools installed in your environment before build and run the project.
 
 
-## Build and run
-
-### Clone the repo
+## Native Server
 
 Clone from coding.net:
 ```
@@ -62,77 +60,10 @@ git submodule update
 ```
 This will also clone the other 3 repos via git submodule mechanism.
 
+## Docker Server
 
-### Run on a normal host
-
-We provide a shell script `ide.sh` to ease the process for you.
-
-```
-./ide.sh build   # transpile and pack the frontend to webjars
-./ide.sh run     # start the backend server
-```
-Server runs on port 8080 by default, visit localhost:8080 to check it out.
-
-
-### Run in a docker container
-
-We've provides a docker image on docker hub: [webide](https://hub.docker.com/r/webide/webide/). Pull it and create a container, then run with command:
-```
-./ide.sh docker run
-```
-
-#### Using `ide.sh`
-
-If you make changes on source code, you can recompile and run with commands:
-```
-./ide.sh docker build
-./ide.sh docker run
-```
-
-Listed below are all docker related command in `ide.sh`
-```
-./ide.sh docker build  # create docker image
-./ide.sh docker run    # create and start a container
-./ide.sh docker stop   # stop container
-./ide.sh docker attach # attach container(use control-c to exit)
-./ide.sh docker logs   # check container's logs
-./ide.sh docker exec   # create a new Bash session in the container
-./ide.sh docker remove # remove container
-```
-
-#### Using `docker` CLI
-
-If you encounter any problem using `ide.sh`, try get around it using docker CLI directly.
-
-##### Run
-
-If app state persistency is not important to you (that is, app data will be gone when container get deleted), simply run this one-liner:
 ```
 docker run -p 8080:8080 --name webide webide/webide
 ```
 
-Howerver, if you want to persist app state, you need to make sure `$HOME/.coding-ide-home` directories exist. If not, you need to **manually create them**, then run:
-```
-docker create -p 8080:8080 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide webide/webide
-```
-
-Rebuild and run with:
-```
-docker build -t webide/webide
-docker run -p 8080:8080 --name webide webide/webide
-```
-
-Listed below are other frequently used docker commands
-```
-# stop container
-docker stop webide
-
-# attach container
-docker attach --sig-proxy=false webide
-
-# check container's logs
-docker logs webide
-
-# create a new Bash session in the container
-docker exec -it webide bash
-```
+To learn more about docker commands，please refer to wiki [English](https://github.com/Coding/WebIDE/wiki/Docker-Server.en) [中文](https://github.com/Coding/WebIDE/wiki/Docker-Server.zh)
