@@ -16,10 +16,12 @@ ADD . /opt/coding/WebIDE
 
 RUN sudo chown -R coding /opt/coding/WebIDE
 
-RUN cd /opt/coding/WebIDE/frontend && npm install && npm run build
+RUN cd /opt/coding/WebIDE/frontend && npm install && npm run build \
+	&& cd /opt/coding/WebIDE/frontend-webjars && mvn -s ../mvn_settings.xml clean install \
+	&& cd /opt/coding/WebIDE/backend && mvn -s ../mvn_settings.xml clean package -Dmaven.test.skip=true \
+	&& cp /opt/coding/WebIDE/backend/target/ide-backend.jar /opt/coding/WebIDE \
+	&& cd /opt/coding/WebIDE/frontend && rm -r build node_modules \
+	&& cd /opt/coding/WebIDE/frontend-webjars && mvn clean \
+	&& cd /opt/coding/WebIDE/backend && mvn clean 
 
-RUN cd /opt/coding/WebIDE/frontend-webjars && mvn -s ../mvn_settings.xml clean install
-
-RUN cd /opt/coding/WebIDE/backend && mvn -s ../mvn_settings.xml clean package -Dmaven.test.skip=true
-
-CMD ["java", "-jar", "/opt/coding/WebIDE/backend/target/ide-backend.jar", "--PTY_LIB_FOLDER=/opt/coding/WebIDE/backend/src/main/resources/lib"]
+CMD ["java", "-jar", "/opt/coding/WebIDE/ide-backend.jar", "--PTY_LIB_FOLDER=/opt/coding/WebIDE/backend/src/main/resources/lib"]
