@@ -200,7 +200,7 @@ sub_docker() {
       ;;
     "logs")
       assert_container_is_running
-      docker logs webide
+      docker logs -f webide
       ;;
     "remove")
       if container_is_running ; then
