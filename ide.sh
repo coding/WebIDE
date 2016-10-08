@@ -21,7 +21,7 @@ sub_help(){
   echo ""
   echo "Subcommands:"
   echo "  build"
-  echo "  run"
+  echo "  run [-p port]"
   echo "  docker [build|run|attach|stop|logs|exec]"
   echo ""
   echo "For help with each subcommand run:"
@@ -220,29 +220,44 @@ sub_docker() {
 
 do_run_backend() {
   cd $BACKEND
-  mvn clean spring-boot:run
+  mvn clean spring-boot:run ${1}
   cd $BASEDIR
 }
 
 sub_run() {
+    local OPTIND opt
+
     run_usage() {
-        echo "Usage: $PROG_NAME run"
+        echo "Usage: $PROG_NAME run [-p port]"
     }
+
+    # process options
+    while getopts ":p:" opt; do
+      case $opt in
+        p)
+          EXTRA_VARS=-Drun.arguments="--server.port=${OPTARG}"
+          ;;
+        \?)
+          build_usage
+          exit 1
+          ;;
+      esac
+    done
+
+    shift $((OPTIND-1))
 
     case $1 in
     "-h" | "--help")
         run_usage
         ;;
     "")
-        do_run_backend
+        do_run_backend $EXTRA_VARS
         ;;
     esac
 }
 
 # process subcommands
-
 subcommand=$1
-
 case $subcommand in
     "" | "-h" | "--help")
         sub_help
