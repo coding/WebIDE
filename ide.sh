@@ -17,10 +17,10 @@ valid_last_cmd() {
 }
 
 sub_help(){
-  echo "Usage: $PROG_NAME [-e <subcommand>"
+  echo "Usage: $PROG_NAME <subcommand>"
   echo ""
   echo "Subcommands:"
-  echo "  build"
+  echo "  build [-t tag]"
   echo "  run [-p port]"
   echo "  docker [build|run|attach|stop|logs|exec]"
   echo ""
@@ -151,6 +151,8 @@ create_dir_if_not_exist() {
 
 sub_docker() {
 
+    local OPTIND opt
+
     check_docker() {
       if ! docker ps > /dev/null 2>&1; then
         output=$(docker ps)
@@ -164,12 +166,25 @@ sub_docker() {
 
     check_docker
 
+    # process options
+    while getopts ":t:" opt; do
+      case $opt in
+        t)
+          EXTRA_VARS="-t ${OPTARG}"
+          ;;
+        \?)
+          docker_usage
+          exit 1
+          ;;
+      esac
+    done
+
     case $1 in
     "-h" | "--help")
       docker_usage
       ;;
     "build")
-      docker build -t webide/webide .
+      docker build $EXTRA_VARS .
       ;;
     "run")
       RUNNING=$(docker inspect --format="{{ .State.Running }}" $CONTAINER 2> /dev/null)
@@ -238,7 +253,7 @@ sub_run() {
           EXTRA_VARS=-Drun.arguments="--server.port=${OPTARG}"
           ;;
         \?)
-          build_usage
+          run_usage
           exit 1
           ;;
       esac
