@@ -68,6 +68,21 @@ We provide a shell script `ide.sh` to ease the process for you.
 ```
 Server runs on port 8080 by default, visit localhost:8080 to check it out.
 
+
+### Configurations
+
+`backend/src/main/resources/application.properties` contains configurations of user, project, database, etc., you can change these parameters to meet your need:
+
+* **SPACE_HOME:** path to your workspace directory, default to `${"user.home"}/.workspace`
+* **server.port:** backend server port
+* **USERNAME:** username, used by git as its `user.name` config when commit, defaults to "coding"
+* **EMAIL:** email, used by git as its `user.email` config when commit, defaults to "coding@coding.net"
+* **AVATAR:** user's avatar
+* **CODING_IDE_HOME:** path to store WebIDE application's data
+
+If changed, restart the application to let your configurations take effect. Note that changes on `USERNAME`, `EMAIL` *WILL NOT* apply to workspaces that are already created.
+
+
 ## Docker Server
 
 ```
