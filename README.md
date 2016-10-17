@@ -6,7 +6,7 @@ README: [English](https://github.com/Coding/WebIDE/blob/master/README.md) | [中
 
 ![](https://raw.githubusercontent.com/Coding/WebIDE/gh-pages/screenshots/workspace.png)
 
-Coding WebIDE(https://ide.coding.net) is a cloud-based IDE developed by Coding Team.You can create your own workspace and develop projects here.WebIDE works fine with Git. You can use Coding、GitHub、BitBucket as your Git repository. Workspaces are powered by Docker Ubuntu containers.The development environment can be saved and shared to your team member.
+Coding WebIDE(https://ide.coding.net) is a cloud-based IDE developed by Coding Team.You can create your own workspace and develop projects here.WebIDE works fine with Git. You can use Coding、GitHub、BitBucket、GitLab as your Git repository. Workspaces are powered by Docker Ubuntu containers.The development environment can be saved and shared to your team member.
 
 [Live Demo](https://ide.coding.net/ws/?ownerName=duwan&projectName=WordPress&isTry=true)
 
