@@ -86,7 +86,7 @@ If changed, restart the application to let your configurations take effect. Note
 ## Docker Server
 
 ```
-docker run -p 8080:8080 --name webide webide/webide
+docker run -p 8080:8080 -h webide --name webide webide/webide
 ```
 
 To learn more about docker commands，please refer to wiki [English](https://github.com/Coding/WebIDE/wiki/Docker-Server.en) [中文](https://github.com/Coding/WebIDE/wiki/Docker-Server.zh)

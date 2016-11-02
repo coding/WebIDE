@@ -193,7 +193,7 @@ sub_docker() {
         create_dir_if_not_exist $HOME/.coding-ide-home
 
         echo "creating container $CONTAINER"
-        docker create -p 8080:8080 -v $HOME/.coding-ide-home:/home/coding/.coding-ide-home --name webide webide/webide
+        docker create -p 8080:8080 -v $HOME/.coding-ide-home:/home/coding/coding-ide-home --name webide -h webide  webide/webide
         valid_last_cmd
       elif [ "$RUNNING" == "true" ]; then
         echo "CRITICAL - $CONTAINER is running."
