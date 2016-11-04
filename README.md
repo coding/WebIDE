@@ -35,10 +35,11 @@ This is the entry point to setup and run the WebIDE Community Edition project. I
 
 ## Environment
 
-WebIDE Frontend uses **npm** for package management, **webpack** and **babel** for building.
+WebIDE Frontend require **node v6.x** as build environment (this will save you from alot of weird errors). We recommend **yarn** for package management, **webpack** and **babel** is used for building.
+
 Frontend Webjars & WebIDE Backend use **maven3** and **java8**.
 
-Please ensure you have corresponding tools installed in your environment before build and run the project.
+The project requires at minimum 512MB memory to run. Please ensure you have corresponding tools installed in your environment before build and run the project.
 
 
 ## Native Server

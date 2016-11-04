@@ -35,10 +35,11 @@ Coding WebIDE(https://ide.coding.net) 是 Coding 自主研发的在线集成开�
 
 ## 运行环境
 
-WebIDE Frontend 依赖 **npm** 做包管理，**webpack** 和 **babel** 做构建工具
+WebIDE Frontend 需要 **node v6.x** 作为编译运行环境（可以避免很多奇怪的错误），推荐使用 **yarn** 做包管理工具，做构建工具使用 **webpack** 和 **babel**
+
 WebIDE-Frontend-Webjars & WebIDE-Backend 项目依赖 **maven3** 和 **java8**
 
-在编译、运行项目前，请保证环境依赖已被正确配置。
+运行该项目需要至少 512MB 的内存空间。在编译、运行项目前，请保证环境依赖已被正确配置。
 
 ## Server 版
 
