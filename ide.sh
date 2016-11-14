@@ -235,7 +235,7 @@ sub_docker() {
 
 do_run_backend() {
   cd $BACKEND
-  mvn clean spring-boot:run ${1}
+  mvn clean && mvn spring-boot:run ${1}
   cd $BASEDIR
 }
 
