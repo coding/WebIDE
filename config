@@ -1,0 +1,18 @@
+# Environment for running the application, either "prod" or "dev"
+#RUN_ENV=
+
+# USER INFO
+#USERNAME=
+#EMAIL=
+#AVATAR=
+
+# CORS (Seprate with comma)
+#ALLOWED_ORIGINS=
+
+# Home Directory(Do not modify when using docker)
+#CODING_IDE_HOME=
+#SPACE_HOME=
+
+# Max file size to upload (in Mb)
+#UPLOAD_FILE_SIZE_LIMIT=
+
