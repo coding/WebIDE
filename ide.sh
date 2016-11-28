@@ -62,21 +62,37 @@ do_build_frontend() {
   cd $BASEDIR
 }
 
+do_build_backend() {
+  cd $BACKEND
+  echo "mvn clean and packaging..."
+  mvn clean package -Dmaven.test.skip=true
+  valid_last_cmd
+  cd $BASEDIR
+}
+
 sub_build() {
 
     build_usage() {
-        echo "Usage: $PROG_NAME build frontend"
+        echo "Usage: $PROG_NAME build [frontend | backend | run]"
     }
 
     case $1 in
     "-h" | "--help")
       build_usage
       ;;
-    "" | "frontend")
+    "")
+      do_build_frontend
+      do_build_backend
+      ;;
+    "backend")
+      do_build_backend
+      ;;
+    "frontend")
       do_build_frontend
       ;;
     "run") # build and run
       do_build_frontend
+      do_build_backend
       do_run_backend
       ;;
     esac
@@ -193,7 +209,7 @@ sub_docker() {
         create_dir_if_not_exist $HOME/.coding-ide-home
 
         echo "creating container $CONTAINER"
-        docker create -p 8080:8080 -v $HOME/.coding-ide-home:/home/coding/coding-ide-home --name webide -h webide  webide/webide
+        docker create -p 8080:8080 --env-file config -v $HOME/.coding-ide-home:/home/coding/coding-ide-home --name webide -h webide  webide/webide
         valid_last_cmd
       elif [ "$RUNNING" == "true" ]; then
         echo "CRITICAL - $CONTAINER is running."
@@ -234,9 +250,11 @@ sub_docker() {
 }
 
 do_run_backend() {
-  cd $BACKEND
-  mvn clean && mvn spring-boot:run ${1}
-  cd $BASEDIR
+  if [ ! -f $BACKEND/target/ide-backend.jar ]; then
+     sub_build
+  fi
+  . $BASEDIR/config
+  java -jar $BACKEND/target/ide-backend.jar --PTY_LIB_FOLDER=$BACKEND/src/main/resources/lib ${1}
 }
 
 sub_run() {
@@ -250,7 +268,7 @@ sub_run() {
     while getopts ":p:" opt; do
       case $opt in
         p)
-          EXTRA_VARS=-Drun.arguments="--server.port=${OPTARG}"
+          EXTRA_VARS="--server.port=${OPTARG}"
           ;;
         \?)
           run_usage
