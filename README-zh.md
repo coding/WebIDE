@@ -35,7 +35,7 @@ Coding WebIDE(https://ide.coding.net) 是 Coding 自主研发的在线集成开�
 
 ## 运行环境
 
-WebIDE Frontend 需要 **node v6.x** 作为编译运行环境（可以避免很多奇怪的错误），推荐使用 **yarn** 做包管理工具，做构建工具使用 **webpack** 和 **babel**
+WebIDE Frontend 需要 **node v6.x** 作为编译运行环境（可以避免很多奇怪的错误），使用 **yarn** 做包管理工具，做构建工具使用 **webpack** 和 **babel**
 
 WebIDE-Frontend-Webjars & WebIDE-Backend 项目依赖 **maven3** 和 **java8**
 
@@ -61,7 +61,7 @@ git submodule update
 这样就会通过 git 的 submodule 机制 clone 另外 3 个 repo。
 
 ```
-./ide.sh build   # 编译并打包前端项目  
+./ide.sh build   # 编译并打包前端项目
 ./ide.sh run     # 启动项目
 ```
 
@@ -69,10 +69,10 @@ git submodule update
 
 `backend/src/main/resources/application.properties` 包括用户、项目、数据库等配置，可以通过修改配置定制服务：
 
-* **SPACE_HOME:** 存放 workspace 的目录，默认为 ${"user.home"}/.workspace  
-* **server.port:** 应用启动的端口  
+* **SPACE_HOME:** 存放 workspace 的目录，默认为 ${"user.home"}/.workspace
+* **server.port:** 应用启动的端口
 * **USERNAME:** 用户名，git 提交时会使用该值作为 user.name，默认为 coding。
-* **EMAIL:** 用户邮箱，git 提交时会使用该值作为 user.email，默认为 coding@coding.net  
+* **EMAIL:** 用户邮箱，git 提交时会使用该值作为 user.email，默认为 coding@coding.net
 * **AVATAR:** 用户头像
 * **CODING_IDE_HOME:** 应用数据存放目录
 
