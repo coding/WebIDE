@@ -9,17 +9,18 @@ RUN apt-get update && apt-get install -y zsh && apt-get clean && rm -rf /var/lib
 RUN useradd --create-home --home-dir /home/coding --shell /usr/bin/zsh coding \
 	&& echo "coding:coding" | chpasswd \
 	&& adduser coding sudo \
-	&& echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers 
+	&& echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 USER coding
 ENV HOME /home/coding
 ENV SHELL /usr/bin/zsh
 ENV TERM xterm
-ADD . /opt/coding/WebIDE
 
 # Install oh-my-zsh
 RUN git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh \
 	&& cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+
+ADD . /opt/coding/WebIDE
 
 RUN sudo chown -R coding /opt/coding/WebIDE \
     && mkdir $HOME/.m2

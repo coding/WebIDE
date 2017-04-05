@@ -48,11 +48,9 @@ sub_backend() {
 
 do_build_frontend() {
   cd $FRONTEND
-  echo "npm install..."
-  npm install --registry=https://registry.npm.taobao.org
-
   echo "building frontend..."
-  npm run build
+  yarn install
+  yarn run build
   valid_last_cmd
 
   cd $FRONTEND_WEBJARS
