@@ -47,7 +47,7 @@ script:
 before_cache:
 - set -e
 - mkdir -p $(dirname ${DOCKER_CACHE_FILE})
-- docker save $(docker history -q $REPO:$COMMIT | grep -v '<missing>') | gzip > ${DOCKER_CACHE_FILE}; fi
+- docker save $(docker history -q $REPO:$COMMIT | grep -v '<missing>') | gzip > ${DOCKER_CACHE_FILE}
 
 notifications:
   slack:
