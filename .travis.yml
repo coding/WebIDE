@@ -7,10 +7,12 @@ service:
 - docker
 
 cache:
-  yarn: true
   directories:
-  - "$HOME/.m2"
-  - "$HOME/docker"
+  - $HOME/.m2
+  - $HOME/docker
+  - $HOME/.yarn-cache
+  - frontend/node_modules
+
 env:
   global:
   - secure: NtkK4A4aYmudQue+KzS/PRyO2+5YkKp9x0r0AFRpZB6F9v+4cX+aWynX1reVQ1By9NmB/F3W9t+hujS2Dm7pIwlzj4oDRzdSda/aakOF6fiJvy41xaa4fGNEDdrvrtzfFHoFCuG7lg8mO5hVAIlwXeLR+XjDQXj6XklgHcjxF5WCEzElN9ZcA8K3b7tU1pxyaGeKTN3Qu+L1xVNkFnfi7sCiLIkXG8LV/0O8al/qow5SAm3gBAIqplSN7o2AKur331IsZD6PfTqPTZJbQMYFkcRZisZ+8J/H+xCHTk/Bf56BpMuJYLr0ScZURznmX5Hhh+JSx4kZnQbgs6F26/c1k1vWy9G1ZMRdepBZm+UG3yobbAKH/Nu4tt47UjBdbkedvRJbLUQQCo/StUE0kqRFa9ykQYltGYPm879NRyZbryEK5LHkwW0CNSZFU1zlToo8q7IH47cZz+kJTDFkYoP/0wOVf9sSCV07tWTnegI7P6YR5s+q7n7XYhVUOcS+x0PERYajIybgU0bJ0r2hQc8kg05YlVOH88wR3BGegKnv0J2kw2IKpENIG6FNRmhIeXi27dTIAfcC4w+1XsqBBQZr6f/HKHgLvMi+Y6lrXV/hGJL1CkiEtkuuUyDF8zC68jfqhvunXAuIZD6FnRkHJBVnKqbcqMYD0BxLae4ic5sRXfI=
