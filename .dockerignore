@@ -1,10 +1,14 @@
 */.idea/
 */*.iml
 *.orig
-*/target/
+frontend/
+frontend-webjars/
+backend/
 *.env
 **/*.db
 */*.ipr
 */*.iws
-.DS_Store  
-
+.DS_Store
+*/.git/
+!backend/target/ide-backend.jar
+!backend/src/main/resources/lib

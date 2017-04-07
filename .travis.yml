@@ -1,0 +1,46 @@
+language: java
+jdk:
+  - oraclejdk8
+
+node_js: "7"
+
+service:
+- docker
+
+cache:
+  yarn: true
+  directories:
+  - "$HOME/.m2"
+
+env:
+  global:
+  - secure: cf1UZFSfaPjz9aQ+M8u+6yfZk81DWZoTzmIT9UxCZmwZH8kkb9zADjnLONaOB6jMk6Meyxau76ZACKL8szNd7BcOsL0M5nBpBoUIVc+Lbe+g02TFsm956yfk5FISbK7AUC/Qblhw9jQeyT7qFyeyh711/f3C+jwXFB9P9uxK2PjsUpz0BeQH6ld/wnappNQla3IDM+vLaHv1CmH2y9sLl3WDhs9jVHPUPhzeklgojibvHXRe2wcdytlII4Vh79+kDKCUUncNkPNFqrcY4ISluRGIchTsjy9AR2/MezbS3T3Ei6w4CqTlIT3hRr6B7mQrdXx4rTCKKucafFB2KcFp9cBcqeWZ++B/u/tXyb49nGcuNxQz2zoY0u3Ba5TLelwbQLH8X55meVeJLrDShOTX+PHiNK070o7luz8LDqE1O6WCD3Ne+GcOv1B2uaPT3TkNUNxt82rSaDHwHQWa9/2foELglo+W/ca6SmZb10McyJSaZn50XIquy0g/oMNhkvqTQVYklY5ztbKMqv4hXtiA+Rq1RMWJxDs9OkgQWafPmrTJOO8djf7rEhexfJuVVaOBOFzQZCjv0F+/DqP+E6YpZp2whvjga+/1mp/Nno7UIutJs8GLNONdA4un/EHky0U2BlD6NTH/DePKZWImwzYQSQdGK2xsnA2XH9QM6ZvMWBk=
+  - secure: FEjVU4qL2PBa0LKBGrIRxrWwqplBIf1HbOI+asD6C+woCfdvn2Hv58W339qTGCtHszJYUhLKfPx1Q9c8MriF1PZ4OWFqCI7LHz20IwfDGFXV+nN/WIjRrJWLWLbb2co2gY0mAd22+3ZWKJsqKueum0aKYv3Ba5jwiIfbvEFVG39cLDhVxfxIBmn7AtCEjsdOaDUhbuwde+SBLfC+Zc2IM7PlcAio9ZqGCveKE4Kz1pjcgsWG/kTckNow/zY4o8laOY8OUGFp+wTWQY4EGp9vc6dwQKankrUKhpU3hU261aoyOToZiGvqQCXuNiaAev3SgScLmkIkoSacr03W3xXuQ8ifocHZ8BaZD3fHCYyucORoDPr0s7ak/O8VEqCkasKK8yAD5WH4j9Klidl5dxjL23TCnqtrcHaDKz+5jF81ZONQkoBsFc/Q+4DT9TO01SnJ9uOQYs+FtNNg6GmoskdDFbTAGnC36Q9eb6ofJ+Z37PmfCPqCv36PPOIkaDwpVMdw817bOT/uJs9pgP64Ko8HsdfEHxZp0SZv5qRPUPE/XtoCzIv4cx3Htu1uoxVPDW+YY8gZfQIT8zVR44NqTyJ0DYgx+VZ1DO2bVxMu+2mn8m7aZ/eCHTD8WX7AnbL3GPTVrdvTzGkbAERAIOwFtCq9GPp9Xdc3rtzbg5eN4esWd1w=
+  - COMMIT=${TRAVIS_COMMIT::8}
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-engine
+
+install: true
+
+script:
+  - cd frontend && yarn && yarn run build
+  - cd ../frontend-webjars && mvn install
+  - cd ../backend && mvn package
+  - cd ..
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO=webide/webide
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH
+    ; fi`
+  - docker build -f Dockerfile -t $REPO:$COMMIT .
+  - docker tag $REPO:$COMMIT $REPO:$TAG
+  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker push $REPO
+
+notifications:
+  slack:
+    on_failure: always
+    on_success: change
+    rooms:
+      secure: htxsb1e6mOjdWfyyL2D46tDSwrZsJZd22/VlVLykoSt4vktIBGBFIyfroc0BAD3Bxn/4LT23q1TXVXafFDwUa9NWUFOTciyn5wWoJfTzC/GZ3fk4c9dLX2zcFf+Nz+2UU4Kyg7v4rvm5DiqfyGPmvzoKHG+GjbdYLUTjWr0jKscP5zDIRWv/0RUiea8kgGR4dQLY+xq2tAmvCZBzNnb20NWNzdWHviTN8sdbQMipeLm3rW8LwMQavU/IWNRn4yMVTtUzz1eE+cG74c0H4RTU7iJh1NQFjaFKZvEGuE3ZnTA7e6WGeA5bHbaYY44fjZEEu5uhixj08huMuK3fEyTu1rNh5bkAowxqrI53RLPHsECq0xF+Y5aZpV5dEx+gvz/dNCWlV8d658H11oBhL3gPQPcouJTMoktW+12kEqeKVRnSm6fXJmhYZHLal+bF9iQZjh2Ask+1hoWvQJbFONlrCHp+XGKzMxSxyqXWV491QIDZIQsBw17qNSD1zQG0dSdHogxl/N5MB7lgCCmjMPrPaD29tqO1a3qJAN/2dw0dW0VBOznixNz+hpBVbUELJJjsu8wlrm1wBFsdwLIwCVjSKJ3CgQPoMcYTI1nCm5vzuUEExfGTArh00uvYG4H7usfF/KbMt4zQkwxEwjihLvnw5G//YwWpG+JIte5BMnSJuFU=
