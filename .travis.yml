@@ -3,8 +3,6 @@ language: java
 jdk:
   - oraclejdk8
 
-node_js: "7"
-
 service:
 - docker
 
@@ -20,12 +18,13 @@ env:
   - COMMIT=${TRAVIS_COMMIT::8}
 
 before_install:
-  - sudo apt-get update
-  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-engine
+  - curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-engine nodejs
 
 install: true
 
 script:
+  - set -e
   - cd frontend && yarn && yarn run build
   - cd ../frontend-webjars && mvn install
   - cd ../backend && mvn package
