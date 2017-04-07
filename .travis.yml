@@ -1,7 +1,7 @@
 dist: trusty
 language: java
 jdk:
-  - oraclejdk8
+- oraclejdk8
 
 service:
 - docker
@@ -10,35 +10,34 @@ cache:
   yarn: true
   directories:
   - "$HOME/.m2"
-
 env:
   global:
-  - secure: cf1UZFSfaPjz9aQ+M8u+6yfZk81DWZoTzmIT9UxCZmwZH8kkb9zADjnLONaOB6jMk6Meyxau76ZACKL8szNd7BcOsL0M5nBpBoUIVc+Lbe+g02TFsm956yfk5FISbK7AUC/Qblhw9jQeyT7qFyeyh711/f3C+jwXFB9P9uxK2PjsUpz0BeQH6ld/wnappNQla3IDM+vLaHv1CmH2y9sLl3WDhs9jVHPUPhzeklgojibvHXRe2wcdytlII4Vh79+kDKCUUncNkPNFqrcY4ISluRGIchTsjy9AR2/MezbS3T3Ei6w4CqTlIT3hRr6B7mQrdXx4rTCKKucafFB2KcFp9cBcqeWZ++B/u/tXyb49nGcuNxQz2zoY0u3Ba5TLelwbQLH8X55meVeJLrDShOTX+PHiNK070o7luz8LDqE1O6WCD3Ne+GcOv1B2uaPT3TkNUNxt82rSaDHwHQWa9/2foELglo+W/ca6SmZb10McyJSaZn50XIquy0g/oMNhkvqTQVYklY5ztbKMqv4hXtiA+Rq1RMWJxDs9OkgQWafPmrTJOO8djf7rEhexfJuVVaOBOFzQZCjv0F+/DqP+E6YpZp2whvjga+/1mp/Nno7UIutJs8GLNONdA4un/EHky0U2BlD6NTH/DePKZWImwzYQSQdGK2xsnA2XH9QM6ZvMWBk=
-  - secure: FEjVU4qL2PBa0LKBGrIRxrWwqplBIf1HbOI+asD6C+woCfdvn2Hv58W339qTGCtHszJYUhLKfPx1Q9c8MriF1PZ4OWFqCI7LHz20IwfDGFXV+nN/WIjRrJWLWLbb2co2gY0mAd22+3ZWKJsqKueum0aKYv3Ba5jwiIfbvEFVG39cLDhVxfxIBmn7AtCEjsdOaDUhbuwde+SBLfC+Zc2IM7PlcAio9ZqGCveKE4Kz1pjcgsWG/kTckNow/zY4o8laOY8OUGFp+wTWQY4EGp9vc6dwQKankrUKhpU3hU261aoyOToZiGvqQCXuNiaAev3SgScLmkIkoSacr03W3xXuQ8ifocHZ8BaZD3fHCYyucORoDPr0s7ak/O8VEqCkasKK8yAD5WH4j9Klidl5dxjL23TCnqtrcHaDKz+5jF81ZONQkoBsFc/Q+4DT9TO01SnJ9uOQYs+FtNNg6GmoskdDFbTAGnC36Q9eb6ofJ+Z37PmfCPqCv36PPOIkaDwpVMdw817bOT/uJs9pgP64Ko8HsdfEHxZp0SZv5qRPUPE/XtoCzIv4cx3Htu1uoxVPDW+YY8gZfQIT8zVR44NqTyJ0DYgx+VZ1DO2bVxMu+2mn8m7aZ/eCHTD8WX7AnbL3GPTVrdvTzGkbAERAIOwFtCq9GPp9Xdc3rtzbg5eN4esWd1w=
+  - secure: NtkK4A4aYmudQue+KzS/PRyO2+5YkKp9x0r0AFRpZB6F9v+4cX+aWynX1reVQ1By9NmB/F3W9t+hujS2Dm7pIwlzj4oDRzdSda/aakOF6fiJvy41xaa4fGNEDdrvrtzfFHoFCuG7lg8mO5hVAIlwXeLR+XjDQXj6XklgHcjxF5WCEzElN9ZcA8K3b7tU1pxyaGeKTN3Qu+L1xVNkFnfi7sCiLIkXG8LV/0O8al/qow5SAm3gBAIqplSN7o2AKur331IsZD6PfTqPTZJbQMYFkcRZisZ+8J/H+xCHTk/Bf56BpMuJYLr0ScZURznmX5Hhh+JSx4kZnQbgs6F26/c1k1vWy9G1ZMRdepBZm+UG3yobbAKH/Nu4tt47UjBdbkedvRJbLUQQCo/StUE0kqRFa9ykQYltGYPm879NRyZbryEK5LHkwW0CNSZFU1zlToo8q7IH47cZz+kJTDFkYoP/0wOVf9sSCV07tWTnegI7P6YR5s+q7n7XYhVUOcS+x0PERYajIybgU0bJ0r2hQc8kg05YlVOH88wR3BGegKnv0J2kw2IKpENIG6FNRmhIeXi27dTIAfcC4w+1XsqBBQZr6f/HKHgLvMi+Y6lrXV/hGJL1CkiEtkuuUyDF8zC68jfqhvunXAuIZD6FnRkHJBVnKqbcqMYD0BxLae4ic5sRXfI=
+  - secure: HZipPIhxoHUMxO+EsCImjcbaJNsbXTo4NpmBzGm5uv2RdQRTyauePpwNfcFnpZNrCz0e6BfSAxzEZ6HZ+hIViPZUCWBrB3us7XOSd9U9S40a6E4LnfMMfX53awC7BFAoiU5eIrcOAgSppIic0ZaOHdM0BbIFJeU3mUsApHQ9s4fj8pRp38e9PYfAQ7K0zreU5rnEV/cWJhF2G1Qx7jkeiA99tf4ndjNP9L8Olcs/jaN1nxggR7QuT8hTfNJNIVeYBirhudu/5K2TblydBh7CKcmv77N5H6um07SP32oXAOoUESpfEntKS/FgUAMcckYYX1SIsYzMuqZbN60kgmPocppsDp2NARsKn4/EEV1aZe0Dm8udOXipxVaXBCnKXS5mm+zlmmgRY//DCoH8Jk8ULOhqc6Yevj3IMUK4KIL46q4tfaB9ktVVa+a3b/Ljqs0dgsAKC11tx+rUWHjUCX30ixH035H40xOzRw+5DVVyy2KtppNnwKWx+3xBRrwx1zwWBb2p9UsXZ1hEo3c/cCpseuHvbbXYVOoOXRxA2ZtJf5MnjU9Y5K20gBM4qFJ/E2xYJ5LiE5HOLluNECyF6lzIWZeVMp1qic98C662+Hpyj9HnHnDGdwkHyuBBWlsQxyKTiQt9S6HfG0WDQFvS1PF3/9dW4yO8bkrXBTeuBWy9638=
   - COMMIT=${TRAVIS_COMMIT::8}
 
 before_install:
-  - sudo apt-get update
-  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-engine
-  - nvm install 7
-  - nvm use 7
+- sudo apt-get update
+- sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-engine
+- nvm install 7
+- nvm use 7
 
 install: true
 
 script:
-  - set -e
-  - cd frontend && yarn && yarn run build
-  - cd ../frontend-webjars && mvn install
-  - cd ../backend && mvn package
-  - cd ..
-  - docker login -u $DOCKER_USER -p $DOCKER_PASS
-  - export REPO=webide/webide
-  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH
-    ; fi`
-  - docker build -f Dockerfile -t $REPO:$COMMIT .
-  - docker tag $REPO:$COMMIT $REPO:$TAG
-  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
-  - docker push $REPO
+- set -e
+- cd frontend && yarn && yarn run build
+- cd ../frontend-webjars && mvn install
+- cd ../backend && mvn package
+- cd ..
+- docker login -u $DOCKER_USER -p $DOCKER_PASS
+- export REPO=webide/webide
+- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH
+  ; fi`
+- docker build -f Dockerfile -t $REPO:$COMMIT .
+- docker tag $REPO:$COMMIT $REPO:$TAG
+- docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+- docker push $REPO
 
 notifications:
   slack:
