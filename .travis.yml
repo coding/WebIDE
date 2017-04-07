@@ -35,14 +35,8 @@ script:
 - cd frontend && yarn && yarn run build
 - cd ../frontend-webjars && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 - cd ../backend && mvn package -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-- cd ..
-- docker login -u $DOCKER_USER -p $DOCKER_PASS
-- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH
-  ; fi`
-- docker build -f Dockerfile -t $REPO:$COMMIT .
-- docker tag $REPO:$COMMIT $REPO:$TAG
-- docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
-- docker push $REPO
+- cd .. && docker build -f Dockerfile -t $REPO:$COMMIT .
+- if [ -n $TRAVIS_TAG ]; then docker tag $REPO:$COMMIT $REPO:$TRAVIS_TAG ; docker tag $REPO:$COMMIT $REPO:latest ; docker login -u $DOCKER_USER -p $DOCKER_PASS ; docker push $REPO ; fi
 
 before_cache:
 - set -e
