@@ -2,8 +2,6 @@ dist: trusty
 language: java
 jdk:
   - oraclejdk8
-node_js:
-  - "7"
 
 service:
 - docker
@@ -20,8 +18,10 @@ env:
   - COMMIT=${TRAVIS_COMMIT::8}
 
 before_install:
-  - curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
-  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-engine nodejs
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-engine
+  - nvm install 7
+  - nvm use 7
 
 install: true
 
