@@ -33,8 +33,8 @@ install: true
 script:
 - set -e
 - cd frontend && yarn && yarn run build
-- cd ../frontend-webjars && mvn install
-- cd ../backend && mvn package
+- cd ../frontend-webjars && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+- cd ../backend && mvn package -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 - cd ..
 - docker login -u $DOCKER_USER -p $DOCKER_PASS
 - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH
