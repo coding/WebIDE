@@ -10,17 +10,21 @@ cache:
   yarn: true
   directories:
   - "$HOME/.m2"
+  - "$HOME/docker"
 env:
   global:
   - secure: NtkK4A4aYmudQue+KzS/PRyO2+5YkKp9x0r0AFRpZB6F9v+4cX+aWynX1reVQ1By9NmB/F3W9t+hujS2Dm7pIwlzj4oDRzdSda/aakOF6fiJvy41xaa4fGNEDdrvrtzfFHoFCuG7lg8mO5hVAIlwXeLR+XjDQXj6XklgHcjxF5WCEzElN9ZcA8K3b7tU1pxyaGeKTN3Qu+L1xVNkFnfi7sCiLIkXG8LV/0O8al/qow5SAm3gBAIqplSN7o2AKur331IsZD6PfTqPTZJbQMYFkcRZisZ+8J/H+xCHTk/Bf56BpMuJYLr0ScZURznmX5Hhh+JSx4kZnQbgs6F26/c1k1vWy9G1ZMRdepBZm+UG3yobbAKH/Nu4tt47UjBdbkedvRJbLUQQCo/StUE0kqRFa9ykQYltGYPm879NRyZbryEK5LHkwW0CNSZFU1zlToo8q7IH47cZz+kJTDFkYoP/0wOVf9sSCV07tWTnegI7P6YR5s+q7n7XYhVUOcS+x0PERYajIybgU0bJ0r2hQc8kg05YlVOH88wR3BGegKnv0J2kw2IKpENIG6FNRmhIeXi27dTIAfcC4w+1XsqBBQZr6f/HKHgLvMi+Y6lrXV/hGJL1CkiEtkuuUyDF8zC68jfqhvunXAuIZD6FnRkHJBVnKqbcqMYD0BxLae4ic5sRXfI=
   - secure: HZipPIhxoHUMxO+EsCImjcbaJNsbXTo4NpmBzGm5uv2RdQRTyauePpwNfcFnpZNrCz0e6BfSAxzEZ6HZ+hIViPZUCWBrB3us7XOSd9U9S40a6E4LnfMMfX53awC7BFAoiU5eIrcOAgSppIic0ZaOHdM0BbIFJeU3mUsApHQ9s4fj8pRp38e9PYfAQ7K0zreU5rnEV/cWJhF2G1Qx7jkeiA99tf4ndjNP9L8Olcs/jaN1nxggR7QuT8hTfNJNIVeYBirhudu/5K2TblydBh7CKcmv77N5H6um07SP32oXAOoUESpfEntKS/FgUAMcckYYX1SIsYzMuqZbN60kgmPocppsDp2NARsKn4/EEV1aZe0Dm8udOXipxVaXBCnKXS5mm+zlmmgRY//DCoH8Jk8ULOhqc6Yevj3IMUK4KIL46q4tfaB9ktVVa+a3b/Ljqs0dgsAKC11tx+rUWHjUCX30ixH035H40xOzRw+5DVVyy2KtppNnwKWx+3xBRrwx1zwWBb2p9UsXZ1hEo3c/cCpseuHvbbXYVOoOXRxA2ZtJf5MnjU9Y5K20gBM4qFJ/E2xYJ5LiE5HOLluNECyF6lzIWZeVMp1qic98C662+Hpyj9HnHnDGdwkHyuBBWlsQxyKTiQt9S6HfG0WDQFvS1PF3/9dW4yO8bkrXBTeuBWy9638=
   - COMMIT=${TRAVIS_COMMIT::8}
+  - DOCKER_CACHE_FILE=${HOME}/docker/cache.tar.gz
+  - REPO=webide/webide
 
 before_install:
 - sudo apt-get update
 - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-engine
 - nvm install 7
 - nvm use 7
+- if [ -f ${DOCKER_CACHE_FILE} ]; then gunzip -c ${DOCKER_CACHE_FILE} | docker load; fi
 
 install: true
 
@@ -31,13 +35,17 @@ script:
 - cd ../backend && mvn package
 - cd ..
 - docker login -u $DOCKER_USER -p $DOCKER_PASS
-- export REPO=webide/webide
 - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH
   ; fi`
 - docker build -f Dockerfile -t $REPO:$COMMIT .
 - docker tag $REPO:$COMMIT $REPO:$TAG
 - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
 - docker push $REPO
+
+before_cache:
+- set -e
+- mkdir -p $(dirname ${DOCKER_CACHE_FILE})
+- docker save $(docker history -q $REPO:$COMMIT | grep -v '<missing>') | gzip > ${DOCKER_CACHE_FILE}; fi
 
 notifications:
   slack:
