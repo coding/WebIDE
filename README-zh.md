@@ -70,19 +70,19 @@ git submodule update
 
 `backend/src/main/resources/application.properties` 包括用户、项目、数据库等配置，可以通过修改配置定制服务：
 
-* **SPACE_HOME:** 存放 workspace 的目录，默认为 ${"user.home"}/.workspace
+* **SPACE_HOME:** 存放 workspace 的目录，默认为 `~/.coding-ide/workspace`
 * **server.port:** 应用启动的端口
 * **USERNAME:** 用户名，git 提交时会使用该值作为 user.name，默认为 coding。
 * **EMAIL:** 用户邮箱，git 提交时会使用该值作为 user.email，默认为 coding@coding.net
 * **AVATAR:** 用户头像
-* **CODING_IDE_HOME:** 应用数据存放目录
+* **CODING_IDE_HOME:** 应用数据存放目录，默认为 `~/.coding-ide`
 
 修改配置后，需要重启应用。另外如果修改了 `USERNAME`、`EMAIL` 的值，会在创建新的 Workspace 时生效。
 
 ## docker 版
 
 ```
-docker run -p 8080:8080 --name webide webide/webide
+docker run -p 8080:8080 -v coding-ide-home:/root/.coding-ide webide/webide
 ```
 
 更多 docker 命令，参照 wiki [English](https://github.com/Coding/WebIDE/wiki/Docker-Server.en) [中文](https://github.com/Coding/WebIDE/wiki/Docker-Server.zh)
