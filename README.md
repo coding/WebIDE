@@ -1,4 +1,5 @@
 # Coding WebIDE
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://github.com/Coding/WebIDE/blob/master/LICENSE) [![Build Status](https://travis-ci.org/Coding/WebIDE.svg?branch=master)](https://travis-ci.org/Coding/WebIDE) [![Docker Stars](https://img.shields.io/docker/stars/webide/webide.svg)](https://hub.docker.com/r/webide/webide 'DockerHub') [![Docker Pulls](https://img.shields.io/docker/pulls/webide/webide.svg)](https://hub.docker.com/r/webide/webide 'DockerHub')
 
 README: [English](https://github.com/Coding/WebIDE/blob/master/README.md) | [中文](https://github.com/Coding/WebIDE/blob/master/README-zh.md)
 
@@ -74,12 +75,12 @@ Server runs on port 8080 by default, visit localhost:8080 to check it out.
 
 `backend/src/main/resources/application.properties` contains configurations of user, project, database, etc., you can change these parameters to meet your need:
 
-* **SPACE_HOME:** path to your workspace directory, default to `${"user.home"}/.workspace`
+* **SPACE_HOME:** path to your workspace directory, default to `~/.coding-ide/workspace`
 * **server.port:** backend server port
 * **USERNAME:** username, used by git as its `user.name` config when commit, defaults to "coding"
 * **EMAIL:** email, used by git as its `user.email` config when commit, defaults to "coding@coding.net"
 * **AVATAR:** user's avatar
-* **CODING_IDE_HOME:** path to store WebIDE application's data
+* **CODING_IDE_HOME:** path to store WebIDE application's data, default to `~/.coding-ide`
 
 If changed, restart the application to let your configurations take effect. Note that changes on `USERNAME`, `EMAIL` *WILL NOT* apply to workspaces that are already created.
 
@@ -87,7 +88,7 @@ If changed, restart the application to let your configurations take effect. Note
 ## Docker Server
 
 ```
-docker run -p 8080:8080 -h webide --name webide webide/webide
+docker run -p 8080:8080 -v coding-ide-home:/root/.coding-ide webide/webide
 ```
 
 To learn more about docker commands，please refer to wiki [English](https://github.com/Coding/WebIDE/wiki/Docker-Server.en) [中文](https://github.com/Coding/WebIDE/wiki/Docker-Server.zh)
