@@ -23,7 +23,7 @@ env:
 
 before_install:
 - sudo apt-get update
-- sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-engine
+- sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
 - nvm install 7
 - nvm use 7
 - if [ -f ${DOCKER_CACHE_FILE} ]; then gunzip -c ${DOCKER_CACHE_FILE} | docker load; fi
