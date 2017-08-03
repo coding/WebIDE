@@ -191,7 +191,7 @@ sub_docker() {
       docker_usage
       ;;
     "build")
-      docker build $EXTRA_VARS .
+      docker build $EXTRA_VARS -t webide/webide .
       ;;
     "run")
       RUNNING=$(docker inspect --format="{{ .State.Running }}" $CONTAINER 2> /dev/null)
