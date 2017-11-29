@@ -33,7 +33,7 @@ install: true
 
 script:
 - set -e
-- cd frontend && yarn && yarn run build
+- cd frontend && yarn && pwd && ls node_modules/.bin && yarn run build
 - cd ../frontend-webjars && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 - cd ../backend && mvn package -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 - cd .. && docker build -f Dockerfile -t $REPO:$COMMIT .
