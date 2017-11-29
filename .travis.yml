@@ -20,6 +20,7 @@ env:
   - COMMIT=${TRAVIS_COMMIT::8}
   - DOCKER_CACHE_FILE=${HOME}/docker/cache.tar.gz
   - REPO=webide/webide
+  - NODE_ENV=production
 
 before_install:
 - sudo apt-get update
