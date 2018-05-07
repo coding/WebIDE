@@ -3,6 +3,10 @@
 
 README: [English](https://github.com/Coding/WebIDE/blob/master/README.md) | [中文](https://github.com/Coding/WebIDE/blob/master/README-zh.md)
 
+----
+### 线上 WebIDE 现已全面升级为 Cloud Studio，欢迎访问 https://studio.coding.net/
+----
+
 ![](https://raw.githubusercontent.com/Coding/WebIDE/gh-pages/screenshots/import.png)
 
 ![](https://raw.githubusercontent.com/Coding/WebIDE/gh-pages/screenshots/workspace.png)
