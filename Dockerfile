@@ -13,6 +13,10 @@ RUN git clone --depth=1 git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
 ENV SHELL /bin/zsh
 
+RUN set -x \
+  ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+  echo "Asia/Shanghai" > /etc/timezone
+
 ADD backend/target/ide-backend.jar /root
 ADD backend/src/main/resources/lib /root/lib
 
