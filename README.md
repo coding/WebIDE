@@ -1,4 +1,4 @@
-# Coding WebIDE
+# Coding in WebIDE
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://github.com/Coding/WebIDE/blob/master/LICENSE) [![Build Status](https://travis-ci.org/Coding/WebIDE.svg?branch=master)](https://travis-ci.org/Coding/WebIDE) [![Docker Stars](https://img.shields.io/docker/stars/webide/webide.svg)](https://hub.docker.com/r/webide/webide 'DockerHub') [![Docker Pulls](https://img.shields.io/docker/pulls/webide/webide.svg)](https://hub.docker.com/r/webide/webide 'DockerHub')
 
 README: [English](https://github.com/Coding/WebIDE/blob/master/README.md) | [中文](https://github.com/Coding/WebIDE/blob/master/README-zh.md)
